@@ -5,23 +5,23 @@ package com.teejay.activityfragmentmvp.data.model;
  */
 
 public class Artist {
-    long id;
+    String id;
     String name;
     int albumCount;
     int trackCount;
 
-    public Artist(long id, String name, int albumCount, int trackCount) {
+    public Artist(String id, String name, int albumCount, int trackCount) {
         this.id = id;
         this.name = name;
         this.albumCount = albumCount;
         this.trackCount = trackCount;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

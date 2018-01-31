@@ -1,7 +1,11 @@
 package com.teejay.activityfragmentmvp.ui.main.presenters;
 
 
+import android.util.Log;
+
 import com.gun0912.tedpermission.PermissionListener;
+import com.teejay.activityfragmentmvp.data.DataManager;
+import com.teejay.activityfragmentmvp.data.model.Artist;
 import com.teejay.activityfragmentmvp.ui.main.views.ArtistsView;
 import com.teejay.activityfragmentmvp.util.PermissionManager;
 
@@ -14,8 +18,12 @@ public class ArtistsPresenterImpl implements ArtistsPresenter,PermissionListener
     private ArtistsView view;
     @Inject
     PermissionManager permissionManager;
+
+    @Inject
+    DataManager dataManager;
+
     private boolean permissionGranted;
-    List artists;
+    List<Artist> artists;
     @Inject
     public ArtistsPresenterImpl() {
 
@@ -42,24 +50,19 @@ public class ArtistsPresenterImpl implements ArtistsPresenter,PermissionListener
 
     @Override
     public void loadArtists() {
-        if(!permissionGranted){
-            view.showArtistsEmpty();
 
-        }
-        else{
-            artists= new ArrayList();
-            view.showArtists(artists);
-        }
     }
 
     @Override
     public void onPermissionGranted() {
         permissionGranted=true;
+        artists= dataManager.getAlbumsfromDevice();
         view.showArtists(artists);
     }
 
     @Override
     public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+        view.showArtistsEmpty();
 
     }
 }
