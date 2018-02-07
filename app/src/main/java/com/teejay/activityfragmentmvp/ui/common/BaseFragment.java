@@ -1,5 +1,6 @@
 package com.teejay.activityfragmentmvp.ui.common;
 
+
 import android.app.Fragment;
 import android.os.Bundle;
 

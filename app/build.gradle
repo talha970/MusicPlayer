@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.teejay.activityfragmentmvp"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -24,6 +24,7 @@ allprojects {
         maven {
             url "https://maven.google.com"
         }
+        mavenCentral()
     }
 }
 
@@ -40,5 +41,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.sothree.slidinguppanel:library:3.4.0'
 
 }

@@ -1,4 +1,4 @@
-package com.teejay.activityfragmentmvp.ui.main;
+package com.teejay.activityfragmentmvp.ui.main.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.teejay.activityfragmentmvp.R;
 import com.teejay.activityfragmentmvp.ui.common.BaseFragment;
+import com.teejay.activityfragmentmvp.ui.main.FragmentCallback;
+import com.teejay.activityfragmentmvp.ui.main.activity.MainActivity;
 import com.teejay.activityfragmentmvp.ui.main.presenters.SongsPresenterImpl;
 import com.teejay.activityfragmentmvp.ui.main.views.SongsView;
 

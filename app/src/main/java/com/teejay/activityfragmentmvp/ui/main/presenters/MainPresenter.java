@@ -6,7 +6,7 @@ public interface MainPresenter {
 
     public void getArtistFragment();
     public void getSongsFragment();
-
+    public void getAlbumFragment();
 
 
 }

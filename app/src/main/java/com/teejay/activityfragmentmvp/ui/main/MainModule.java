@@ -1,6 +1,6 @@
 package com.teejay.activityfragmentmvp.ui.main;
 
-import com.teejay.activityfragmentmvp.ui.main.adapters.ArtistsAdapter;
+import com.teejay.activityfragmentmvp.ui.main.activity.MainActivity;
 import com.teejay.activityfragmentmvp.ui.main.presenters.SongsPresenter;
 import com.teejay.activityfragmentmvp.ui.main.presenters.SongsPresenterImpl;
 import com.teejay.activityfragmentmvp.ui.main.presenters.ArtistsPresenter;

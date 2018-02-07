@@ -7,10 +7,10 @@ package com.teejay.activityfragmentmvp.data.model;
 public class Artist {
     String id;
     String name;
-    int albumCount;
-    int trackCount;
+    String albumCount;
+    String trackCount;
 
-    public Artist(String id, String name, int albumCount, int trackCount) {
+    public Artist(String id, String name, String albumCount, String trackCount) {
         this.id = id;
         this.name = name;
         this.albumCount = albumCount;
@@ -33,19 +33,19 @@ public class Artist {
         this.name = name;
     }
 
-    public int getAlbumCount() {
+    public String getAlbumCount() {
         return albumCount;
     }
 
-    public void setAlbumCount(int albumCount) {
+    public void setAlbumCount(String albumCount) {
         this.albumCount = albumCount;
     }
 
-    public int getTrackCount() {
+    public String getTrackCount() {
         return trackCount;
     }
 
-    public void setTrackCount(int trackCount) {
+    public void setTrackCount(String trackCount) {
         this.trackCount = trackCount;
     }
 }

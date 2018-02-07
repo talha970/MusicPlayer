@@ -25,4 +25,9 @@ public class MainPresenterImpl implements MainPresenter {
         view.showSongsFragment();
     }
 
+    @Override
+    public void getAlbumFragment() {
+        view.showAlbumFragment();
+    }
+
 }

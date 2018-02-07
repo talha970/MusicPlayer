@@ -1,7 +1,8 @@
 package com.teejay.activityfragmentmvp.ui.main;
 
 import com.teejay.activityfragmentmvp.AppModule;
-
+import com.teejay.activityfragmentmvp.ui.main.activity.MainActivity;
+import com.teejay.activityfragmentmvp.ui.main.fragments.*;
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -17,4 +18,6 @@ public interface MainComponent {
     void inject(ArtistsFragment artistsFragment);
 
     void inject(SongsFragment songsFragment);
+
+    void inject(AlbumsFragment albumsFragment);
 }

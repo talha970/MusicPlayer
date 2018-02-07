@@ -1,26 +1,29 @@
-package com.teejay.activityfragmentmvp.ui.main;
+package com.teejay.activityfragmentmvp.ui.main.fragments;
 
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
+
+import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import com.teejay.activityfragmentmvp.R;
-import com.teejay.activityfragmentmvp.data.model.Artist;
+import com.teejay.activityfragmentmvp.data.model.Album;
 import com.teejay.activityfragmentmvp.ui.common.BaseFragment;
-import com.teejay.activityfragmentmvp.ui.main.adapters.ArtistsAdapter;
-import com.teejay.activityfragmentmvp.ui.main.presenters.ArtistsPresenterImpl;
-import com.teejay.activityfragmentmvp.ui.main.views.ArtistsView;
+import com.teejay.activityfragmentmvp.ui.main.FragmentCallback;
+import com.teejay.activityfragmentmvp.ui.main.activity.MainActivity;
+import com.teejay.activityfragmentmvp.ui.main.adapters.AlbumsAdapter;
+import com.teejay.activityfragmentmvp.ui.main.adapters.base.OnRecycleObjectClickListener;
+import com.teejay.activityfragmentmvp.ui.main.presenters.AlbumsPresenterImpl;
+import com.teejay.activityfragmentmvp.ui.main.views.AlbumsView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,26 +32,26 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ArtistsFragment extends BaseFragment implements ArtistsView {
-    private static final String TAG = "ArtistsFragment";
+public class AlbumsFragment extends BaseFragment implements AlbumsView, OnRecycleObjectClickListener<Album> {
+    private static final String TAG = "AlbumsFragment";
     @Inject
-    ArtistsPresenterImpl presenter;
+    AlbumsPresenterImpl presenter;
 
     @Inject
-    ArtistsAdapter artistsAdapter;
+    AlbumsAdapter albumsAdapter;
 
     private FragmentCallback callback;
 
     private View view;
 
-    @BindView(R.id.artists_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.albums_recycler_view) RecyclerView mRecyclerView;
 
 
-    public static ArtistsFragment newInstance() {
-        return new ArtistsFragment();
+    public static AlbumsFragment newInstance() {
+        return new AlbumsFragment();
     }
 
-    public ArtistsFragment() {
+    public AlbumsFragment() {
         // Required empty public constructor
     }
 
@@ -58,7 +61,7 @@ public class ArtistsFragment extends BaseFragment implements ArtistsView {
         ((MainActivity) getActivity()).getActivityComponent().inject(this);
 
         presenter.init(this);
-        presenter.loadArtists();
+        presenter.loadAlbums();
     }
 
     @Override
@@ -71,10 +74,10 @@ public class ArtistsFragment extends BaseFragment implements ArtistsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_artists, container, false);
+        view = inflater.inflate(R.layout.fragment_albums, container, false);
         ButterKnife.bind(this,view);
-
-        mRecyclerView.setAdapter(artistsAdapter);
+        albumsAdapter.setListener(this);
+        mRecyclerView.setAdapter(albumsAdapter);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         return view;
@@ -105,17 +108,24 @@ public class ArtistsFragment extends BaseFragment implements ArtistsView {
     }
 
     @Override
-    public void showArtistsEmpty() {
-        artistsAdapter.setmArtists(Collections.<Artist>emptyList());
-        artistsAdapter.notifyDataSetChanged();
+    public void showAlbumsEmpty() {
+        albumsAdapter.setItems(Collections.<Album>emptyList());
+        albumsAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void showArtists(List<Artist> artists) {
-        Log.d(TAG, String.valueOf(artists.size()));
-        artistsAdapter.setmArtists(artists);
-        artistsAdapter.notifyDataSetChanged();
+    public void showAlbums(List<Album> Albums) {
+        Log.d(TAG, String.valueOf(Albums.size()));
+        albumsAdapter.setItems(Albums);
+        albumsAdapter.notifyDataSetChanged();
 
     }
 
+    @Override
+    public void OnItemClick(Album item) {
+        Fragment fragmentC = new AlbumDetailFragment();
+       getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragmentC).addToBackStack(null).commit();
+
+        Toast.makeText(getActivity(),item.getThumbnail(),Toast.LENGTH_SHORT).show();
+    }
 }
