@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 import com.teejay.activityfragmentmvp.R;
 import com.teejay.activityfragmentmvp.data.model.Album;
 import com.teejay.activityfragmentmvp.ui.common.BaseFragment;
@@ -34,6 +36,7 @@ import butterknife.ButterKnife;
 
 public class AlbumsFragment extends BaseFragment implements AlbumsView, OnRecycleObjectClickListener<Album> {
     private static final String TAG = "AlbumsFragment";
+    public static final String ALBUM_ID ="Album_ID" ;
     @Inject
     AlbumsPresenterImpl presenter;
 
@@ -123,9 +126,18 @@ public class AlbumsFragment extends BaseFragment implements AlbumsView, OnRecycl
 
     @Override
     public void OnItemClick(Album item) {
-        Fragment fragmentC = new AlbumDetailFragment();
-       getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragmentC).addToBackStack(null).commit();
+        Bundle bundle= new Bundle();
+        bundle.putString(ALBUM_ID,new Gson().toJson(item));
 
-        Toast.makeText(getActivity(),item.getThumbnail(),Toast.LENGTH_SHORT).show();
+        Fragment detailFragment = new AlbumDetailFragment();
+
+        detailFragment.setArguments(bundle);
+
+       getFragmentManager().
+               beginTransaction().
+               replace(R.id.fragment_container,detailFragment).
+               addToBackStack(null).
+               commit();
+
     }
 }

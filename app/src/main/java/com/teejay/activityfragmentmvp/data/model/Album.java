@@ -5,7 +5,7 @@ package com.teejay.activityfragmentmvp.data.model;
  */
 
 public class Album {
-    Song[] songs;
+
     String id;
     String name;
     String noOfTracks;
@@ -28,13 +28,7 @@ public class Album {
         this.artistName = artistName;
     }
 
-    public Song[] getSongs() {
-        return songs;
-    }
 
-    public void setSongs(Song[] songs) {
-        this.songs = songs;
-    }
 
     public String getId() {
         return id;

@@ -21,6 +21,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.teejay.activityfragmentmvp.data.model.Song;
+
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 public class MediaStoreAccessHelper {
@@ -35,18 +39,19 @@ public class MediaStoreAccessHelper {
 	 * Queries MediaStore and returns a cursor with songs limited 
 	 * by the selection parameter.
 	 */
-	public static Cursor getAllSongsWithSelection(Context context, 
-												  String selection, 
-												  String[] projection, 
+	public static Cursor getAllSongsWithSelection(Context context,
+												  String[] projection,
+												  String selection,
+												  String[] selectionArgs,
 												  String sortOrder) {
 		
 		ContentResolver contentResolver = context.getContentResolver();
 		Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 		
-		return contentResolver.query(uri, projection, selection, null, sortOrder);
+		return contentResolver.query(uri, projection, selection, selectionArgs, sortOrder);
 		
 	}
-	
+
 	/**
 	 * Queries MediaStore and returns a cursor with all songs.
 	 */

@@ -20,4 +20,7 @@ public interface MainComponent {
     void inject(SongsFragment songsFragment);
 
     void inject(AlbumsFragment albumsFragment);
+
+    void inject(AlbumDetailFragment albumDetailFragment);
+
 }

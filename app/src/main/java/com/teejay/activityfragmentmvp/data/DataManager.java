@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import com.teejay.activityfragmentmvp.data.local.MediaStoreAccessHelper;
 import com.teejay.activityfragmentmvp.data.model.Album;
 import com.teejay.activityfragmentmvp.data.model.Artist;
+import com.teejay.activityfragmentmvp.data.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,8 @@ public class DataManager {
     public List<Artist> mArtists;
 
     public List<Album> mAlbums;
+
+    public List<Song> mSongs;
 
 
     public List<Artist> getArtistsfromDevice() {
@@ -89,5 +92,63 @@ public class DataManager {
         }
         audioCursor.close();
         return mAlbums;
+    }
+    public List<Song> getSongsByAlbum(String id){
+        mSongs=new ArrayList<>();
+        String[] columns={
+                MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.DISPLAY_NAME,
+                MediaStore.Audio.Media.MIME_TYPE,
+                MediaStore.Audio.Media.TRACK,
+                MediaStore.Audio.Media.DURATION,
+                MediaStore.Audio.Media.DATA,
+        };
+
+        String where= MediaStore.Audio.Media.ALBUM_ID+"=?";
+
+        audioCursor = MediaStoreAccessHelper.getAllSongsWithSelection(context,columns,where, new String[] { id },"ASC");
+        if (audioCursor != null) {
+            if (audioCursor.moveToFirst()) {
+                do {
+                    Song song;
+                    int songIDColumn = audioCursor.getColumnIndexOrThrow( MediaStore.Audio.Media._ID);
+                    int songTitleColumn = audioCursor.getColumnIndexOrThrow( MediaStore.Audio.Media.TITLE);
+                    int songFileNameColumn = audioCursor.getColumnIndexOrThrow( MediaStore.Audio.Media.DISPLAY_NAME);
+                    int songMIMEColumn = audioCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.MIME_TYPE);
+                    int songTracknoColumn = audioCursor.getColumnIndexOrThrow( MediaStore.Audio.Media.TRACK);
+                    int songDurationColumn = audioCursor.getColumnIndexOrThrow( MediaStore.Audio.Media.DURATION);
+                    int songPathColumn = audioCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+                    int songArtistColumn = audioCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
+                    int songArtistIDColumn = audioCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST_ID);
+                    int songAlbumIDColumn = audioCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID);
+                    int songAlbumColumn = audioCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
+                    int songYearColumn = audioCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.YEAR);
+
+                    String songID=audioCursor.getString(songIDColumn);
+                    String songTitle=audioCursor.getString(songTitleColumn);
+                    String songFileName=audioCursor.getString(songFileNameColumn);
+                    String songMime=audioCursor.getString(songMIMEColumn);
+                    int songTrackNo=audioCursor.getInt(songTracknoColumn);
+                    int songDuration=audioCursor.getInt(songDurationColumn);
+                    String songPath=audioCursor.getString(songPathColumn);
+                    String songArtist=audioCursor.getString(songArtistColumn);
+                    String songYear=audioCursor.getString(songYearColumn);
+                    String songAlbum=audioCursor.getString(songAlbumColumn);
+                    String songAlbumID=audioCursor.getString(songAlbumIDColumn);
+                    String songArtistID=audioCursor.getString(songArtistIDColumn);
+
+
+
+                    song=new Song(songID,songAlbumID,songAlbum,songArtistID,songArtist,songDuration,songTitle,songTrackNo,songPath);
+                    if(!mSongs.contains(song)) {
+                        mSongs.add(song);
+                    }
+                } while (audioCursor.moveToNext());
+            }
+        }
+        audioCursor.close();
+
+        return mSongs;
     }
 }
