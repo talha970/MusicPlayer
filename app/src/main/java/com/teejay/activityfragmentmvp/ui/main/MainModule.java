@@ -1,6 +1,13 @@
 package com.teejay.activityfragmentmvp.ui.main;
 
+import android.content.Context;
+
+import com.teejay.activityfragmentmvp.data.DataManager;
 import com.teejay.activityfragmentmvp.ui.main.activity.MainActivity;
+import com.teejay.activityfragmentmvp.ui.main.presenters.AlbumDetailsPresenter;
+import com.teejay.activityfragmentmvp.ui.main.presenters.AlbumDetailsPresenterImpl;
+import com.teejay.activityfragmentmvp.ui.main.presenters.AlbumsPresenter;
+import com.teejay.activityfragmentmvp.ui.main.presenters.AlbumsPresenterImpl;
 import com.teejay.activityfragmentmvp.ui.main.presenters.SongsPresenter;
 import com.teejay.activityfragmentmvp.ui.main.presenters.SongsPresenterImpl;
 import com.teejay.activityfragmentmvp.ui.main.presenters.ArtistsPresenter;
@@ -56,8 +63,25 @@ public class MainModule {
      */
     @Provides
     @Singleton
+    public AlbumsPresenter provideAlbumsPresenter(DataManager dataManager) {
+        return new AlbumsPresenterImpl(dataManager);
+    }
+    @Provides
+    @Singleton
     public SongsPresenter provideDetailsPresenter() {
         return new SongsPresenterImpl();
+    }
+
+    @Provides
+    @Singleton
+    public AlbumDetailsPresenter provideAlbumDetailsPresenter(DataManager dataManager) {
+        return new AlbumDetailsPresenterImpl(dataManager);
+    }
+
+    @Provides
+    @Singleton
+    public DataManager provideDataManager(Context context){
+        return new DataManager(context);
     }
 
 }

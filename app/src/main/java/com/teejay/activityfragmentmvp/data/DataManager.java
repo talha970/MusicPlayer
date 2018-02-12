@@ -103,6 +103,11 @@ public class DataManager {
                 MediaStore.Audio.Media.TRACK,
                 MediaStore.Audio.Media.DURATION,
                 MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.ARTIST_ID,
+                MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.ALBUM_ID,
+                MediaStore.Audio.Media.YEAR,
         };
 
         String where= MediaStore.Audio.Media.ALBUM_ID+"=?";

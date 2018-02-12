@@ -20,14 +20,13 @@ public class AlbumsPresenterImpl implements AlbumsPresenter,PermissionListener {
     @Inject
     PermissionManager permissionManager;
 
-    @Inject
     DataManager dataManager;
 
     private boolean permissionGranted;
     List<Album> Albums;
     @Inject
-    public AlbumsPresenterImpl() {
-
+    public AlbumsPresenterImpl(DataManager dataManager) {
+        this.dataManager=dataManager;
     }
 
     @Override

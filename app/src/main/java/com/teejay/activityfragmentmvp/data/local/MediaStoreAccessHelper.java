@@ -48,7 +48,7 @@ public class MediaStoreAccessHelper {
 		ContentResolver contentResolver = context.getContentResolver();
 		Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 		
-		return contentResolver.query(uri, projection, selection, selectionArgs, sortOrder);
+		return contentResolver.query(uri, projection, selection, selectionArgs, null);
 		
 	}
 
